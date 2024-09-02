@@ -1,0 +1,5 @@
+return {
+	"neoclide/coc.nvim",
+	event = { "InsertEnter", "CmdlineEnter" },
+	branch = "release",
+}

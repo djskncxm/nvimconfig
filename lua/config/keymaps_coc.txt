@@ -1,0 +1,49 @@
+local map = vim.keymap.set
+local opts = { silent = true, noremap = true, expr = true, replace_keycodes = false }
+function _G.check_back_space()
+	local col = vim.fn.col(".") - 1
+	return col == 0 or vim.fn.getline("."):sub(col, col):match("%s") ~= nil
+end
+local builtin = require("telescope.builtin")
+
+function _G.show_docs()
+	local cw = vim.fn.expand("<cword>")
+	if vim.fn.index({ "vim", "help" }, vim.bo.filetype) >= 0 then
+		vim.api.nvim_command("h " .. cw)
+	elseif vim.api.nvim_eval("coc#rpc#ready()") then
+		vim.fn.CocActionAsync("doHover")
+	else
+		vim.api.nvim_command("!" .. vim.o.keywordprg .. " " .. cw)
+	end
+end
+
+map("i", "jk", "<ESC>")
+
+map("n", "<C-l>", "<C-w>l")
+map("n", "<C-h>", "<C-w>h")
+map("n", "<C-j>", "<C-w>j")
+map("n", "<C-k>", "<C-w>k")
+
+map("n", "<tab>", "<Cmd>BufferLineCycleNext<cr>")
+map("n", "<S-tab>", "<Cmd>BufferLineCyclePrev<CR>")
+map("i", "<CR>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
+map("i", "<TAB>", 'coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? "<TAB>" : coc#refresh()', opts)
+map("i", "<C-j>", [[coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"]], opts)
+map("i", "<C-k>", [[coc#pum#visible() ? coc#pum#prev(1) : "\<Tab>"]], opts)
+map("n", "[g", "<Plug>(coc-diagnostic-prev)", { silent = true })
+map("n", "]g", "<Plug>(coc-diagnostic-next)", { silent = true })
+map("n", "<leader>ff", builtin.find_files, {})
+map("n", "<leader>fg", builtin.live_grep, {})
+map("n", "<leader>fb", builtin.buffers, {})
+map("n", "<leader>fh", builtin.help_tags, {})
+-- 定义
+map("n", "gd", "<Plug>(coc-definition)", { silent = true })
+-- 类型定义
+map("n", "gy", "<Plug>(coc-type-definition)", { silent = true })
+-- 函数的实现
+map("n", "gi", "<Plug>(coc-implementation)", { silent = true })
+-- 在什么地方使用了
+map("n", "gr", "<Plug>(coc-references)", { silent = true })
+-- map("n", "K", '<CMD>lua _G.show_docs()<CR>', {silent = true})
+map("n", "<C-m>", "<Cmd>%s/\r//g<CR>")
+-- map("n","<leader>","")
