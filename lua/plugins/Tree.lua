@@ -1,23 +1,24 @@
 return {
 	"nvim-tree/nvim-tree.lua",
-	dependencies = {},
+	version = "*",
+	lazy = false,
 	keys = {
 		{ "<C-n>", "<Cmd>NvimTreeToggle<cr>", desc = "NvimTreefocus" },
 	},
+	dependencies = {
+		"nvim-tree/nvim-web-devicons",
+	},
 	config = function()
 		require("nvim-tree").setup({
-			sort = {
-				sorter = "case_sensitive",
-			},
-			view = {
-				width = 35,
-			},
 			renderer = {
+				full_name = true,
 				group_empty = true,
-			},
-			filters = {
-				dotfiles = true,
-			},
+				special_files = {},
+				symlink_destination = false,
+				indent_markers = {
+					enable = true,
+				},
+			}
 		})
 	end,
 }

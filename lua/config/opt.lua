@@ -11,10 +11,10 @@ vim.opt.signcolumn = "yes"
 vim.bo.shiftwidth = 8
 vim.g.mapleader = " "
 vim.g.leader = " "
-
-vim.opt.mouse = "a"
+vim.ui.select = require('dropbar.utils.menu').select
 vim.opt.foldenable = false
 vim.o.scrolloff = 15
+vim.notify = require("notify")
 vim.diagnostic.config({
 	virtual_text = true,
 	virtual_lines = false,
@@ -31,5 +31,36 @@ end
 
 vim.g.dbs = {
 	{ name = "Windows", url = "mysql://root:qpal@192.168.0.15:3306" },
-	{ name = "Linux", url = "mysql://rootqpal@localhost" },
+	{ name = "Linux",   url = "mysql://rootqpal@localhost" },
 }
+
+if vim.g.neovide then
+	vim.o.guifont = "Iosevka Nerd Font:h10"
+	vim.g.neovide_hide_mouse_when_typing = false
+	vim.g.neovide_confirm_quit = true
+	vim.g.neovide_cursor_vfx_mode = "ripple"
+	vim.neovide_confirm_quit = true
+end
+
+local Terminal = require('toggleterm.terminal').Terminal
+local dbs = Terminal:new({
+	cmd = "nvim +DBUI",
+	dir = "git_dir",
+	direction = "float",
+	float_opts = {
+		border = "double",
+	},
+	-- function to run on opening the terminal
+	on_open = function(term)
+		vim.cmd("startinsert!")
+		vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
+	end,
+	-- function to run on closing the terminal
+	on_close = function(term)
+		vim.cmd("startinsert!")
+	end,
+})
+
+function _DB_toggle()
+	dbs:toggle()
+end
