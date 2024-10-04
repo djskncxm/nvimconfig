@@ -5,7 +5,7 @@ return {
 	lazy = false,
 	config = function()
 		require("catppuccin").setup({
-			transparent_background = true,
+			transparent_background = false,
 			coc_nvim = false,
 			notify = true,
 			integrations = {

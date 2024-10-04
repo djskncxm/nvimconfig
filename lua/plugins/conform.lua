@@ -38,9 +38,6 @@ return {
 					"check",
 				},
 			},
-			clang_fromt = {
-				command = "/usr/bin/clang-format",
-			},
 		},
 	},
 	init = function()

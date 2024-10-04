@@ -15,12 +15,16 @@ vim.ui.select = require('dropbar.utils.menu').select
 vim.opt.foldenable = false
 vim.o.scrolloff = 15
 vim.notify = require("notify")
+vim.o.tabstop = 8
+vim.o.softtabstop = 8
+
 vim.diagnostic.config({
 	virtual_text = true,
 	virtual_lines = false,
 	signs = true,
 	update_in_insert = true,
 })
+
 local signs = { Error = "💩", Info = "󰋼", Hint = "󰌵", Warn = "🤡" }
 for type, icon in pairs(signs) do
 	local hl = "DiagnosticSign" .. type
@@ -29,10 +33,10 @@ end
 
 -- vim.api.nvim_set_hl(0, "CocMenuSel", { fg = "#FFCCCC", bg = "#666666" })
 
-vim.g.dbs = {
+--[[ vim.g.dbs = {
 	{ name = "Windows", url = "mysql://root:qpal@192.168.0.15:3306" },
-	{ name = "Linux",   url = "mysql://rootqpal@localhost" },
-}
+	{ name = "Linux",   url = "mysql://root:qpal@localhost" },
+} ]]
 
 if vim.g.neovide then
 	vim.o.guifont = "Iosevka Nerd Font:h10"
@@ -44,7 +48,7 @@ end
 
 local Terminal = require('toggleterm.terminal').Terminal
 local dbs = Terminal:new({
-	cmd = "nvim +DBUI",
+	cmd = "vim +DBUI",
 	dir = "git_dir",
 	direction = "float",
 	float_opts = {

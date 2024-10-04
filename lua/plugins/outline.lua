@@ -7,6 +7,6 @@ return {
 	},
 	opts = {},
 	config = function()
-		require("outline").setup {}
+		require("outline").setup({})
 	end,
 }

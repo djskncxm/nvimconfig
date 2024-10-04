@@ -120,10 +120,10 @@ return {
 					},
 				}),
 				documentation = {
-					border = "rounded",                       -- single|rounded|none
+					border = "rounded",
 					winhighlight =
-					"Normal:Normal,FloatBorder:FloatBorder,CursorLine:CursorLineBG,Search:None", -- BorderBG|FloatBorder
-					side_padding = 2,                         -- * NOT WORKING
+					"Normal:Normal,FloatBorder:FloatBorder,CursorLine:CursorLineBG,Search:None",
+					side_padding = 2,
 				},
 			},
 			mapping = cmp.mapping.preset.insert({

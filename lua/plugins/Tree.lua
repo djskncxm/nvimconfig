@@ -18,7 +18,7 @@ return {
 				indent_markers = {
 					enable = true,
 				},
-			}
+			},
 		})
 	end,
 }
