@@ -11,4 +11,3 @@ git clone https://github.com/Life-Mentor/NvimConfig.git ~/.config/nvim && nvim
 coc还是没cmp好用，反正都配置了，到时候写个autocmd切换就行
 
 :)
-

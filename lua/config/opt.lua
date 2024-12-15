@@ -17,6 +17,7 @@ vim.o.scrolloff = 15
 vim.notify = require("notify")
 vim.o.tabstop = 8
 vim.o.softtabstop = 8
+vim.loader.enable()
 
 vim.diagnostic.config({
 	virtual_text = true,
@@ -39,7 +40,7 @@ end
 } ]]
 
 if vim.g.neovide then
-	vim.o.guifont = "Iosevka Nerd Font:h10"
+	vim.o.guifont = "Iosevka Nerd Font:h11"
 	vim.g.neovide_hide_mouse_when_typing = false
 	vim.g.neovide_confirm_quit = true
 	vim.g.neovide_cursor_vfx_mode = "ripple"
