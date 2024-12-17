@@ -20,8 +20,8 @@ vim.o.softtabstop = 8
 vim.loader.enable()
 
 vim.diagnostic.config({
-	virtual_text = true,
-	virtual_lines = false,
+	virtual_text = false,
+	virtual_lines = true,
 	signs = true,
 	update_in_insert = true,
 })
@@ -45,6 +45,9 @@ if vim.g.neovide then
 	vim.g.neovide_confirm_quit = true
 	vim.g.neovide_cursor_vfx_mode = "ripple"
 	vim.neovide_confirm_quit = true
+	vim.g.neovide_transparency = 0.95
+	vim.g.neovide_cursor_animation_length = 0.1
+	vim.cmd [[colorscheme synthwave84]]
 end
 
 local Terminal = require('toggleterm.terminal').Terminal
