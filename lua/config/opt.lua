@@ -17,6 +17,7 @@ vim.o.scrolloff = 15
 vim.notify = require("notify")
 vim.o.tabstop = 8
 vim.o.softtabstop = 8
+vim.g.c_syntax_for_h = 1
 vim.loader.enable()
 
 vim.diagnostic.config({
