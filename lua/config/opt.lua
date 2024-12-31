@@ -21,8 +21,8 @@ vim.g.c_syntax_for_h = 1
 vim.loader.enable()
 
 vim.diagnostic.config({
-	virtual_text = false,
-	virtual_lines = true,
+	virtual_text = true,
+	virtual_lines = false,
 	signs = true,
 	update_in_insert = true,
 })
