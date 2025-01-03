@@ -35,10 +35,10 @@ end
 
 -- vim.api.nvim_set_hl(0, "CocMenuSel", { fg = "#FFCCCC", bg = "#666666" })
 
---[[ vim.g.dbs = {
-	{ name = "Windows", url = "mysql://root:qpal@192.168.0.15:3306" },
+vim.g.dbs = {
+	-- { name = "Windows", url = "mysql://root:qpal@192.168.0.15:3306" },
 	{ name = "Linux",   url = "mysql://root:qpal@localhost" },
-} ]]
+}
 
 if vim.g.neovide then
 	vim.o.guifont = "Iosevka Nerd Font:h11"
