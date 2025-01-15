@@ -19,6 +19,7 @@ vim.o.tabstop = 8
 vim.o.softtabstop = 8
 vim.g.c_syntax_for_h = 1
 vim.loader.enable()
+local map = vim.keymap.set
 
 vim.diagnostic.config({
 	virtual_text = true,
@@ -37,7 +38,7 @@ end
 
 vim.g.dbs = {
 	-- { name = "Windows", url = "mysql://root:qpal@192.168.0.15:3306" },
-	{ name = "Linux",   url = "mysql://root:qpal@localhost" },
+	{ name = "Linux", url = "mysql://root:qpal@localhost" },
 }
 
 if vim.g.neovide then
@@ -73,3 +74,4 @@ local dbs = Terminal:new({
 function _DB_toggle()
 	dbs:toggle()
 end
+map("n", "<leader>g", "<Cmd>lua _DB_toggle()<CR>", { noremap = true, silent = true })

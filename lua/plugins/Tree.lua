@@ -1,12 +1,13 @@
 return {
 	"nvim-tree/nvim-tree.lua",
 	version = "*",
-	lazy = false,
+	lazy = true,
 	keys = {
-		{ "<C-n>", "<Cmd>NvimTreeToggle<cr>", desc = "NvimTreefocus" },
+		{ "<C-n>", "<Cmd>NvimTreeToggle<CR>", desc = "NvimTreefocus" },
 	},
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
+		lazy = true,
 	},
 	config = function()
 		require("nvim-tree").setup({

@@ -6,6 +6,8 @@ return {
 	---@module 'render-markdown'
 	---@type render.md.UserConfig
 	opts = {},
+	event = 'FileType',
+	ft='markdown',
 	config = function()
 		require('render-markdown').setup({
 			render_modes = true,
