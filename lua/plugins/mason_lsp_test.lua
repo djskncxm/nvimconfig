@@ -2,7 +2,7 @@ return {
 	"williamboman/mason-lspconfig.nvim",
 	config = function()
 		require("mason-lspconfig").setup({
-			ensure_installed = { "lua_ls", "pyright", "ruff", "clangd", "jdtls"},
+			ensure_installed = { "lua_ls", "pyright", "ruff", "jdtls","clangd"},
 			handlers = {
 				function(server_name)
 					require("lspconfig")[server_name].setup({})

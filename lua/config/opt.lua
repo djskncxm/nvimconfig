@@ -19,6 +19,11 @@ vim.o.tabstop = 8
 vim.o.softtabstop = 8
 vim.g.c_syntax_for_h = 1
 vim.loader.enable()
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.opt.foldlevel = 1
+
+
 local map = vim.keymap.set
 
 vim.diagnostic.config({
@@ -54,7 +59,7 @@ end
 
 local Terminal = require('toggleterm.terminal').Terminal
 local dbs = Terminal:new({
-	cmd = "vim +DBUI",
+	cmd = 'nvim +DBUI"',
 	dir = "git_dir",
 	direction = "float",
 	float_opts = {
@@ -74,4 +79,5 @@ local dbs = Terminal:new({
 function _DB_toggle()
 	dbs:toggle()
 end
+
 map("n", "<leader>g", "<Cmd>lua _DB_toggle()<CR>", { noremap = true, silent = true })

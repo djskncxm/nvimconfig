@@ -19,6 +19,7 @@ return {
 			c = { "clang-format" },
 			cpp = { "clang-format" }, -- 对于C和C++统一使用 clang-format
 			java = { "clang-format" }, -- 可以统一为 clang-format，或者使用 java-specific 格式化工具
+			asm = { "asmfmt" },
 		},
 		-- 默认格式化选项
 		default_format_opts = {
