@@ -23,21 +23,21 @@ vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.foldlevel = 1
 
-
 local map = vim.keymap.set
 
 vim.diagnostic.config({
-	virtual_text = true,
-	virtual_lines = false,
-	signs = true,
+	virtual_lines = true,
+	virtual_text = false,
 	update_in_insert = true,
+	signs = {
+		text = {
+			[vim.diagnostic.severity.HINT]  = "🤓",
+			[vim.diagnostic.severity.ERROR] = "💩",
+			[vim.diagnostic.severity.INFO]  = "🤔",
+			[vim.diagnostic.severity.WARN]  = "🤣"
+		}
+	},
 })
-
-local signs = { Error = "💩", Info = "🤔", Hint = "🤓", Warn = "🤣" }
-for type, icon in pairs(signs) do
-	local hl = "DiagnosticSign" .. type
-	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
 
 -- vim.api.nvim_set_hl(0, "CocMenuSel", { fg = "#FFCCCC", bg = "#666666" })
 
@@ -47,12 +47,12 @@ vim.g.dbs = {
 }
 
 if vim.g.neovide then
-	vim.o.guifont = "Iosevka Nerd Font:h11"
+	vim.o.guifont = "Iosevka Nerd Font:h9"
 	vim.g.neovide_hide_mouse_when_typing = false
 	vim.g.neovide_confirm_quit = true
 	vim.g.neovide_cursor_vfx_mode = "ripple"
 	vim.neovide_confirm_quit = true
-	vim.g.neovide_transparency = 0.95
+	vim.g.neovide_opacity = 0.95
 	vim.g.neovide_cursor_animation_length = 0.1
 	vim.cmd [[colorscheme synthwave84]]
 end
@@ -71,7 +71,7 @@ local dbs = Terminal:new({
 		vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
 	end,
 	-- function to run on closing the terminal
-	on_close = function(term)
+	on_close = function()
 		vim.cmd("startinsert!")
 	end,
 })
