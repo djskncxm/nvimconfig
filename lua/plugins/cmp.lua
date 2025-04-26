@@ -9,10 +9,19 @@ return {
 		})
 	end,
 	dependencies = {
+		{
+			"saadparwaiz1/cmp_luasnip",
+			"hrsh7th/cmp-nvim-lua",
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-path",
+		},
 		{ "brenoprata10/nvim-highlight-colors" },
 		{
 			"L3MON4D3/LuaSnip",
-			dependencies = "rafamadriz/friendly-snippets",
+			version = "v2.*",
+			dependencies = { "rafamadriz/friendly-snippets" },
+			build = "make install_jsregexp",
 			opts = { history = true, updateevents = "TextChanged,TextChangedI" },
 			config = function(_, opts)
 				local luasnip = require("luasnip")
@@ -24,7 +33,6 @@ return {
 
 				load_vscode({
 					exclude = vim.g.vscode_snippets_exclude or {},
-					paths = vim.g.vscode_snippets_path or "",
 				})
 				load_snipmate({ paths = vim.g.snipmate_snippets_path or "" })
 				load_lua({ paths = vim.g.lua_snippets_path or "" })
@@ -76,17 +84,11 @@ return {
 				require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
 			end,
 		},
-		{
-			"saadparwaiz1/cmp_luasnip",
-			"hrsh7th/cmp-nvim-lua",
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-buffer",
-			"hrsh7th/cmp-path",
-		},
 	},
 	config = function()
 		local cmp = require("cmp")
 
+		local luasnip = require("luasnip")
 		local default_mapping = cmp.mapping.preset.insert({
 			["<C-p>"] = cmp.mapping.select_prev_item(),
 			["<C-n>"] = cmp.mapping.select_next_item(),
@@ -94,18 +96,18 @@ return {
 			["<C-f>"] = cmp.mapping.scroll_docs(4),
 			["<C-Space>"] = cmp.mapping.complete(),
 			["<C-e>"] = cmp.mapping.close(),
-			["<CR>"] = cmp.mapping.confirm({
-				behavior = cmp.ConfirmBehavior.Insert,
-				select = true,
-			}),
+			["<CR>"] = cmp.mapping(function(fallback)
+				if cmp.visible() then
+					if luasnip.expandable() then luasnip.expand() else cmp.confirm({ select = true, }) end
+				else
+					fallback()
+				end
+			end),
 			["<Tab>"] = cmp.mapping(function(fallback)
 				if cmp.visible() then
 					cmp.select_next_item()
-				elseif require("luasnip").expand_or_jumpable() then
-					vim.fn.feedkeys(
-						vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true,
-							true),
-						"")
+				elseif luasnip.locally_jumpable(1) then
+					luasnip.jump(1)
 				else
 					fallback()
 				end
@@ -113,10 +115,8 @@ return {
 			["<S-Tab>"] = cmp.mapping(function(fallback)
 				if cmp.visible() then
 					cmp.select_prev_item()
-				elseif require("luasnip").jumpable(-1) then
-					vim.fn.feedkeys(
-						vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true,
-							true), "")
+				elseif luasnip.locally_jumpable(-1) then
+					luasnip.jump(-1)
 				else
 					fallback()
 				end
@@ -133,7 +133,7 @@ return {
 				completion = cmp.config.window.bordered({
 					winhighlight =
 					"Normal:Normal,FloatBorder:FloatBorder,CursorLine:CursorLineBG,Search:None",
-					border = { "╭", "─", "╮", "│", "󰄛", "─", "╰", "│" },
+					border = { "󰄛", "─", "󰄛", "│", "󰄛", "─", "󰄛", "│" },
 				}),
 				documentation = {
 					border = "rounded",
@@ -145,8 +145,9 @@ return {
 			mapping = default_mapping,
 			sources = cmp.config.sources({
 				{ name = "nvim_lsp" },
-				{ name = "luasnip" },
+				{ name = 'luasnip' },
 				{ name = "vim-dadbod-completion" },
+				{ name = 'nvim_lsp_signature_help' },
 			}, {
 				{ name = "buffer" },
 				{ name = "path" },
@@ -181,7 +182,6 @@ return {
 						Operator = "󰆕",
 						TypeParameter = "",
 					}
-
 					vim_item.kind = icons[vim_item.kind] .. " " .. vim_item.kind .. " "
 					vim_item.menu = ({
 						nvim_lsp = "[LSP]", buffer = "[Buffer]", luasnip = "[LuaSnip]",
@@ -191,12 +191,9 @@ return {
 					return vim_item
 				end,
 			},
-		})
-
-		vim.diagnostic.config({
-			virtual_text = true,
-			underline = false,
-			update_in_insert = true,
+			experimental = {
+				ghost_text = true,
+			}
 		})
 	end,
 }
