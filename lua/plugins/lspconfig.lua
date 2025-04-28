@@ -1,4 +1,3 @@
-local clangd = require "lspconfig.configs.clangd"
 return {
 	"neovim/nvim-lspconfig",
 	event = "User FilePost",

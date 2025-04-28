@@ -10,7 +10,7 @@ return {
 					win = {
 						input = {
 							keys = {
-								["<c-k>"] = {
+								["<c-t>"] = {
 									"trouble_open",
 									mode = { "n", "i" },
 								},
