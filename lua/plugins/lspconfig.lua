@@ -5,6 +5,9 @@ return {
 		require("lspconfig").lua_ls.setup({
 			settings = {
 				Lua = {
+					hint = {
+						enable = true,
+					},
 					runtime = {
 						version = "LuaJIT",
 					},
@@ -24,6 +27,15 @@ return {
 						callSnippet = 'Replace',
 					},
 				},
+				clangd = {
+					InlayHints = {
+						Designators = true,
+						Enabled = true,
+						ParameterNames = true,
+						DeducedTypes = true,
+					},
+					fallbackFlags = { "-std=c++20" },
+				}
 			},
 		})
 	end,

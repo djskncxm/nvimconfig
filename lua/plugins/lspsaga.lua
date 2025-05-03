@@ -4,7 +4,8 @@ return {
 	event = 'LspAttach',
 	key = {
 		vim.keymap.set("n","<S-k>","<cmd>Lspsaga hover_doc<CR>"),
-		vim.keymap.set("n","rn","<cmd>Lspsaga rename<CR>")
+		vim.keymap.set("n","rn","<cmd>Lspsaga rename<CR>"),
+		vim.keymap.set("n","<S-f>","<cmd>Lspsaga finder<CR>")
 	},
 	config = function()
 		require('lspsaga').setup({})

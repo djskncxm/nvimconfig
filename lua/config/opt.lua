@@ -40,8 +40,8 @@ end
 local map = vim.keymap.set
 
 vim.diagnostic.config({
-	virtual_lines = true,
-	virtual_text = false,
+	virtual_lines = false,
+	virtual_text = true,
 	update_in_insert = true,
 	signs = {
 		text = {
