@@ -37,8 +37,6 @@ if vim.env.PROF then
 	})
 end
 
-local map = vim.keymap.set
-
 vim.diagnostic.config({
 	virtual_lines = false,
 	virtual_text = true,
@@ -47,7 +45,8 @@ vim.diagnostic.config({
 		text = {
 			[vim.diagnostic.severity.HINT]  = "🤓",
 			[vim.diagnostic.severity.ERROR] = "💩",
-			[vim.diagnostic.severity.INFO]  = "🤔",
+			-- [vim.diagnostic.severity.INFO]  = "🤔",
+			[vim.diagnostic.severity.INFO]  = "🤡",
 			[vim.diagnostic.severity.WARN]  = "🤣"
 		}
 	},
@@ -94,4 +93,5 @@ function _DB_toggle()
 	dbs:toggle()
 end
 
+local map = vim.keymap.set
 map("n", "<leader>g", "<Cmd>lua _DB_toggle()<CR>", { noremap = true, silent = true })

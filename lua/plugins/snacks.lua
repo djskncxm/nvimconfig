@@ -330,7 +330,7 @@ return {
 				{
 					section = "terminal",
 					cmd =
-					"chafa ~/图片/wallhaven-2yp6gg_1920x1080.png --format symbols --symbols vhalf --size 60x30 --stretch; sleep .1",
+					"chafa /home/duck/图片/wallhaven-yq7v9d_1920x1080.png --format symbols --symbols vhalf --size 60x30 --stretch; sleep .1",
 					height = 30,
 					padding = 1,
 				},
